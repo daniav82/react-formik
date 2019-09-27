@@ -18,6 +18,15 @@ const SignupSchema = Yup.object().shape({
     .required("Required")
 });
 
+//Field validation
+function validateName(value) {
+  let error;
+  if (value === "admin") {
+    error = "Nice try!";
+  }
+  return error;
+}
+
 const Register = () => (
   <div>
     <Formik
@@ -43,9 +52,14 @@ const Register = () => (
         }, 400);
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, isValidating }) => (
         <Form>
-          <Field type="text" name="name" placeholder="Name" />
+          <Field
+            type="text"
+            name="name"
+            placeholder="Name"
+            validate={validateName}
+          />
           <ErrorMessage name="name" component="div" />
           <br />
           <Field type="text" name="lastName" placeholder="Last Name" />
